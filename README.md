@@ -34,6 +34,74 @@ AppSec Management Dashboard is a comprehensive platform designed to centralize a
 - **Orchestration**: Kubernetes-ready
 - **CI/CD**: GitHub Actions
 
+## Security
+
+We take security seriously. Here are the security measures implemented in this project:
+
+### Secret Management
+- **Environment Variables**: All sensitive configuration is managed through environment variables
+- **`.env` File Protection**: `.env` is in `.gitignore` to prevent accidental commits of secrets
+- **`.env.example`**: Template for required environment variables
+
+### Git Security
+- **git-secrets**: Prevents committing sensitive data (API keys, tokens, credentials)
+- **`.gitattributes`**: Prevents accidental commits of sensitive files
+- **`SECURITY.md`**: Security policy and reporting guidelines
+
+### Pre-commit Hooks
+- **git-secrets**: Scans for sensitive data before commits
+- **Pattern Matching**: Blocks commits containing potential secrets or sensitive data
+
+### Secure Configuration
+- **Docker Security**: Non-root user in containers, minimal base images
+- **Database Security**: Password authentication, encrypted connections
+- **API Security**: CORS, rate limiting, CSRF protection
+
+### Dependencies
+- **Dependabot**: Automated dependency updates
+- **Vulnerability Scanning**: Regular security audits
+
+To report security vulnerabilities, please see our [SECURITY.md](SECURITY.md) file.
+
+## Security
+
+### Git Secrets Protection
+
+This repository uses [git-secrets](https://github.com/awslabs/git-secrets) to prevent accidental commits of sensitive information like API keys and credentials.
+
+#### Setup
+
+1. Install git-secrets:
+   ```bash
+   # For macOS
+   brew install git-secrets
+   
+   # For Linux
+   git clone https://github.com/awslabs/git-secrets.git
+   cd git-secrets
+   sudo make install
+   ```
+
+2. Run the setup script:
+   ```bash
+   ./scripts/setup-git-secrets.sh
+   ```
+
+#### How It Works
+
+- The pre-commit hook will block any commits containing sensitive patterns
+- Common patterns like AWS keys, API tokens, and private keys are detected
+- False positives can be allowed by adding them to `.gitallowed`
+
+#### Testing the Setup
+
+To verify the setup is working:
+```bash
+echo "SECRET_KEY=test123" > test.txt
+git add test.txt
+git commit -m "Test commit"  # This should be blocked
+```
+
 ## Project Structure
 
 ```
