@@ -1,0 +1,15 @@
+# Allow git-secrets patterns in these files
+.git-secrets
+.git-secrets-patterns
+
+# Test files for git-secrets
+test_secret.txt
+
+# Pre-commit hooks configuration
+.pre-commit-config.yaml
+
+# Allow patterns in pre-commit config
+PASSWORD
+SECRET
+TOKEN
+KEY
